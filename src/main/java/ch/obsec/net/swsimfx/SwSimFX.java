@@ -36,7 +36,7 @@ public class SwSimFX extends Application{
         LOGGER.debug("start()");
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("SwSimFX");
-        this.primaryStage.getIcons().add(new Image("/images/address_book_32.png"));
+        this.primaryStage.getIcons().add(new Image("/images/SwSimFX.png"));
         initRootLayout();
         showWorkSpace();
     }
