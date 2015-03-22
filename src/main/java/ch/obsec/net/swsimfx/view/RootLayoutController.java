@@ -13,6 +13,7 @@ import ch.obsec.net.swsimfx.SwSimFX;
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
+@SuppressWarnings("unused")
 public class RootLayoutController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootLayoutController.class);
