@@ -3,10 +3,12 @@ package ch.obsec.net.swsimfx.view;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 
+import javafx.scene.control.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.obsec.net.swsimfx.SwSimFX;
+import ch.obsec.net.swsimfx.SSFglobal;
 
 /**
  * @version 1.0
@@ -82,6 +84,16 @@ public class RootLayoutController {
 
     @FXML private void handleMenuHelpAbout() {
         LOGGER.trace("handleMenuHelpAbout()");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("SwSimFX About");
+        alert.setHeaderText("About\nVersion: " + SSFglobal.getVersion());
+        alert.setContentText(
+                SSFglobal.getSystemInfo()[0] +
+                "\n" + SSFglobal.getSystemInfo()[1] + "\n" +
+                "\nAuthor: Mario Oberli" +
+                "\nhttps://development.obsec.ch"
+        );
+        alert.showAndWait();
     }
 
 }
