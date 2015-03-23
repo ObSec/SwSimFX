@@ -50,10 +50,26 @@ public class RootLayoutController {
 
     @FXML private void handleMenuFileSave() {
         LOGGER.trace("handleMenuFileSave()");
+        File configFile = mainApp.getDataFilePath();
+        if (configFile != null) {
+            mainApp.saveDataToFile(configFile);
+        } else {
+            handleMenuFileSaveAs();
+        }
     }
 
     @FXML private void handleMenuFileSaveAs() {
         LOGGER.trace("handleMenuFileSaveAs()");
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+        if (file != null) {
+            if (!file.getPath().endsWith(".xml")) {
+                file = new File(file.getPath() + ".xml");
+            }
+            mainApp.saveDataToFile(file);
+        }
     }
 
     @FXML private void handleMenuFilePrint() {

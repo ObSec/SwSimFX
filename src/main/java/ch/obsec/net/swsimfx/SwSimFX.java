@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
@@ -137,6 +138,25 @@ public class SwSimFX extends Application{
             setDataFilePath(file);
         } catch (Exception e) {
             LOGGER.warn("loadDataFromFile() file: {}",e.getMessage());
+        }
+    }
+
+    /**
+     * save data to a xml file
+     * @param file file to save data to
+     */
+    public void saveDataToFile(File file) {
+        LOGGER.debug("saveCompanyDataToFile()");
+        try {
+            JAXBContext context = JAXBContext.newInstance(DataWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            DataWrapper wrapper = new DataWrapper();
+            wrapper.setData(simData);
+            m.marshal(wrapper, file);
+            setDataFilePath(file);
+        } catch (Exception e) {
+            LOGGER.warn("saveCompanyDataToFile() failed: {}",e.getMessage());
         }
     }
 
