@@ -1,7 +1,7 @@
 package ch.obsec.net.swsimfx;
 
 /**
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
