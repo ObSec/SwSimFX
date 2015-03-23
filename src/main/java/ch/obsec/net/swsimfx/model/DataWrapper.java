@@ -20,8 +20,8 @@ public class DataWrapper {
     private List<SimData> simData;
 
     /**
-     * getCompany
-     * @return company
+     * getData
+     * @return simData
      */
     @XmlElement(name = "simData")
     public List<SimData> getData() {
