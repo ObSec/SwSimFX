@@ -30,8 +30,8 @@ public class DataWrapper {
     }
 
     /**
-     * setCompany
-     * @param simData which company
+     * setData
+     * @param simData which data
      */
     public void setData(List<SimData> simData) {
         LOGGER.debug("setSimData({})",simData);
