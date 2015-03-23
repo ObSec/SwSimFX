@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
