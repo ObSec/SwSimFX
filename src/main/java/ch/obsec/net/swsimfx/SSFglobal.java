@@ -8,9 +8,14 @@ package ch.obsec.net.swsimfx;
 public class SSFglobal {
 
     private static final String SSFVERSION = "1.0";
+    private static final String SSFPRODUCT = "SwSimFX";
 
     public static String getVersion() {
         return SSFVERSION;
+    }
+
+    public static String getProduct() {
+        return SSFPRODUCT;
     }
 
     public static String[] getSystemInfo() {

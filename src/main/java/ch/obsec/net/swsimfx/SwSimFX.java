@@ -1,6 +1,8 @@
 package ch.obsec.net.swsimfx;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -8,11 +10,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.obsec.net.swsimfx.model.SimData;
+import ch.obsec.net.swsimfx.model.DataWrapper;
 import ch.obsec.net.swsimfx.view.RootLayoutController;
 import ch.obsec.net.swsimfx.view.WorkSpaceController;
 
@@ -27,6 +35,8 @@ public class SwSimFX extends Application{
     private Stage primaryStage;
     private BorderPane rootLayout;
 
+    private ObservableList<SimData> simData = FXCollections.observableArrayList();
+
     /**
      * Entry point JavaFX
      * @param primaryStage JavaFX main stage
@@ -35,7 +45,7 @@ public class SwSimFX extends Application{
     public void start(Stage primaryStage) throws IOException {
         LOGGER.debug("start()");
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("SwSimFX");
+        this.primaryStage.setTitle(SSFglobal.getProduct());
         this.primaryStage.getIcons().add(new Image("/images/SwSimFX.png"));
         initRootLayout();
         showWorkSpace();
@@ -58,6 +68,10 @@ public class SwSimFX extends Application{
         } catch (IOException e) {
             LOGGER.warn("initRootLayout() failed: {}", e.getMessage());
         }
+        File file = getDataFilePath();
+        if (file != null) {
+            loadDataFromFile(file);
+        }
     }
 
     /**
@@ -75,6 +89,64 @@ public class SwSimFX extends Application{
         } catch (IOException e) {
             LOGGER.warn("showWorkSpace(): {}", e.getMessage());
         }
+    }
+
+    /**
+    * getting path to data xml file
+    * @return file
+    */
+    public File getDataFilePath() {
+        LOGGER.debug("getDataFilePath()");
+        Preferences prefs = Preferences.userNodeForPackage(SwSimFX.class);
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * setting path to data xml file
+     * @param file path
+     */
+    public void setDataFilePath(File file) {
+        LOGGER.debug("setCompanyFilePath()");
+        Preferences prefs = Preferences.userNodeForPackage(SwSimFX.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+            primaryStage.setTitle(SSFglobal.getProduct() + " " + SSFglobal.getVersion() + " - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+            primaryStage.setTitle(SSFglobal.getProduct() + " " + SSFglobal.getVersion());
+        }
+    }
+
+    /**
+     * load existing data xml file
+     * @param file data to load
+     */
+    public void loadDataFromFile(File file) {
+        LOGGER.debug("loadDataFromFile()");
+        try {
+            JAXBContext context = JAXBContext.newInstance(DataWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+            DataWrapper wrapper = (DataWrapper) um.unmarshal(file);
+            simData.clear();
+            simData.addAll(wrapper.getData());
+            setDataFilePath(file);
+        } catch (Exception e) {
+            LOGGER.warn("loadDataFromFile() file: {}",e.getMessage());
+        }
+    }
+
+    /**
+     * get our stage
+     * @return primaryStage
+     */
+    public Stage getPrimaryStage() {
+        LOGGER.debug("getPrimaryState()");
+        return primaryStage;
     }
 
     /**

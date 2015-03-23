@@ -4,11 +4,14 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.obsec.net.swsimfx.SwSimFX;
 import ch.obsec.net.swsimfx.SSFglobal;
+
+import java.io.File;
 
 /**
  * @version 1.0
@@ -36,6 +39,13 @@ public class RootLayoutController {
 
     @FXML private void handleMenuFileOpen() {
         LOGGER.trace("handleMenuFileOpen()");
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+        if (file != null) {
+            mainApp.loadDataFromFile(file);
+        }
     }
 
     @FXML private void handleMenuFileSave() {
