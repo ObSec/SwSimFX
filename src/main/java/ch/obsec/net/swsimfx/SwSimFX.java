@@ -30,7 +30,7 @@ import ch.obsec.net.swsimfx.view.WorkSpaceController;
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
-public class SwSimFX extends Application{
+public class SwSimFX extends Application {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SwSimFX.class);
     private Stage primaryStage;
