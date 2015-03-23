@@ -7,7 +7,7 @@ package ch.obsec.net.swsimfx;
  */
 public class SSFglobal {
 
-    private static final String SSFVERSION = "1.0";
+    private static final String SSFVERSION = "v1.0";
     private static final String SSFPRODUCT = "SwSimFX";
 
     public static String getVersion() {

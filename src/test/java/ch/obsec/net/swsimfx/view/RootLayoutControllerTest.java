@@ -8,6 +8,7 @@ public class RootLayoutControllerTest {
 
     @Test
     public void testSetMainApp() throws Exception {
-
+        RootLayoutController testRLC = new RootLayoutController();
+        assertNotNull(testRLC);
     }
 }

@@ -8,16 +8,29 @@ public class SSFglobalTest {
 
     @Test
     public void testGetVersion() throws Exception {
-
+        if (SSFglobal.getVersion().equals("v1.0")) {
+            assertTrue(true);
+        } else {
+            assertFalse(true);
+        }
     }
 
     @Test
     public void testGetProduct() throws Exception {
-
+        if (SSFglobal.getProduct().equals("SwSimFX")) {
+            assertTrue(true);
+        } else {
+            assertFalse(true);
+        }
     }
 
     @Test
     public void testGetSystemInfo() throws Exception {
-
+        if (SSFglobal.getSystemInfo()[0] != null && SSFglobal.getSystemInfo()[1] != null) {
+            assertTrue(true);
+        } else {
+            assertFalse(true);
+        }
     }
+
 }

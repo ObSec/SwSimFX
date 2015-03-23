@@ -8,6 +8,7 @@ public class WorkSpaceControllerTest {
 
     @Test
     public void testSetMainApp() throws Exception {
-
+        WorkSpaceController testWSC = new WorkSpaceController();
+        assertNotNull(testWSC);
     }
 }
