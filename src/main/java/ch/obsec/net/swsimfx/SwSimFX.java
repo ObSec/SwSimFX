@@ -55,7 +55,7 @@ public class SwSimFX extends Application {
     /**
      * Initialize main window
      */
-    public void initRootLayout() throws IOException {
+    public void initRootLayout() {
         LOGGER.debug("initRootLayout()");
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -78,13 +78,13 @@ public class SwSimFX extends Application {
     /**
      * Show the main part of the application
      */
-    public void showWorkSpace() throws IOException {
+    public void showWorkSpace() {
         LOGGER.debug("showWorkSpace()");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SwSimFX.class.getResource("/fxml/WorkSpace.fxml"));
-            AnchorPane WorkSpace = loader.load();
-            rootLayout.setCenter(WorkSpace);
+            AnchorPane workSpace = loader.load();
+            rootLayout.setCenter(workSpace);
             WorkSpaceController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {

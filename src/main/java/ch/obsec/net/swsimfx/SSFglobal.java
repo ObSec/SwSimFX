@@ -9,6 +9,7 @@ public class SSFglobal {
 
     private static final String SSFVERSION = "v1.0";
     private static final String SSFPRODUCT = "SwSimFX";
+    private static final int SSF_SYSTEM_INFO_COUNTER = 2;
 
     public static String getVersion() {
         return SSFVERSION;
@@ -19,7 +20,7 @@ public class SSFglobal {
     }
 
     public static String[] getSystemInfo() {
-        String[] sysInfo = new String[2];
+        String[] sysInfo = new String[SSF_SYSTEM_INFO_COUNTER];
         sysInfo[0] = "Java " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor");
         sysInfo[1] = System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", " + System.getProperty("os.arch") + ")";
         return sysInfo;
