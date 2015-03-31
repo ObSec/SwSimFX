@@ -70,6 +70,7 @@ public class SwSimFX extends Application {
             primaryStage.show();
         } catch (IOException e) {
             LOGGER.warn("initRootLayout() failed: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
         File file = getDataFilePath();
         if (file != null) {
@@ -91,6 +92,7 @@ public class SwSimFX extends Application {
             controller.setMainApp(this);
         } catch (IOException e) {
             LOGGER.warn("showWorkSpace(): {}", e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -140,6 +142,7 @@ public class SwSimFX extends Application {
             setDataFilePath(file);
         } catch (Exception e) {
             LOGGER.warn("loadDataFromFile() file: {}",e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -159,6 +162,7 @@ public class SwSimFX extends Application {
             setDataFilePath(file);
         } catch (Exception e) {
             LOGGER.warn("saveCompanyDataToFile() failed: {}",e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
