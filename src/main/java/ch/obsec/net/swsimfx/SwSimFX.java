@@ -28,7 +28,7 @@ import ch.obsec.net.swsimfx.view.WorkSpaceController;
 import ch.obsec.net.swsimfx.view.DeviceEditDialogController;
 
 /**
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
