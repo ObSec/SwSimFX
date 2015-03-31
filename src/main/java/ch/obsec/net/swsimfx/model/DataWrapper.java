@@ -12,30 +12,30 @@ import org.slf4j.LoggerFactory;
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
-@XmlRootElement(name = "simData")
+@XmlRootElement(name = "device")
 public class DataWrapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataWrapper.class);
 
-    private List<SimData> simData;
+    private List<Device> device;
 
     /**
-     * getData
-     * @return simData
+     * getDevice
+     * @return device
      */
-    @XmlElement(name = "simData")
-    public List<SimData> getData() {
+    @XmlElement(name = "device")
+    public List<Device> getDevice() {
         LOGGER.debug("getSimData()");
-        return simData;
+        return device;
     }
 
     /**
-     * setData
-     * @param simData which data
+     * setDevice
+     * @param deviceData which data
      */
-    public void setData(List<SimData> simData) {
-        LOGGER.debug("setSimData({})",simData);
-        this.simData = simData;
+    public void setDevice(List<Device> deviceData) {
+        LOGGER.debug("setSimData({})",deviceData);
+        this.device = deviceData;
     }
 
 }

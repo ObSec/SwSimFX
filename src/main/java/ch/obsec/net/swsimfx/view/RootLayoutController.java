@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.obsec.net.swsimfx.SwSimFX;
 import ch.obsec.net.swsimfx.SSFglobal;
+import ch.obsec.net.swsimfx.model.Device;
 
 import java.io.File;
 
@@ -84,8 +85,16 @@ public class RootLayoutController {
         Platform.exit();
     }
 
+    /**
+     * EventHandler, create a new device
+     */
     @FXML private void handleMenuEditAdd() {
         LOGGER.trace("handleMenuEditAdd()");
+        Device tempDevice = new Device();
+        boolean okClicked = mainApp.showDeviceEditDialog(tempDevice);
+        if (okClicked) {
+            mainApp.getDeviceData().add(tempDevice);
+        }
     }
 
     @FXML private void handleMenuFileDel() {
@@ -115,9 +124,9 @@ public class RootLayoutController {
         alert.setHeaderText("About\nVersion: " + SSFglobal.getVersion());
         alert.setContentText(
                 SSFglobal.getSystemInfo()[0] +
-                "\n" + SSFglobal.getSystemInfo()[1] + "\n" +
-                "\nAuthor: Mario Oberli" +
-                "\nhttps://development.obsec.ch"
+                        "\n" + SSFglobal.getSystemInfo()[1] + "\n" +
+                        "\nAuthor: Mario Oberli" +
+                        "\nhttps://development.obsec.ch"
         );
         alert.showAndWait();
     }
