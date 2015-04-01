@@ -2,6 +2,8 @@ package ch.obsec.net.swsimfx.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import org.slf4j.Logger;
@@ -18,6 +20,12 @@ import ch.obsec.net.swsimfx.model.Device;
 public class DeviceEditDialogController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeviceEditDialogController.class);
+
+    @FXML
+    private Label lblSerialID;
+
+    @FXML
+    private TextField lblName;
 
     private Stage dialogStage;
     private Device device;
@@ -41,13 +49,14 @@ public class DeviceEditDialogController {
     }
 
     /**
-     * set company information
-     * @param device which company
+     * set device information
+     * @param device which device
      */
     public void setDevice(Device device) {
         LOGGER.debug("setDevice({})", device);
         this.device = device;
-        //lblCompany.setText(company.getCompanyLabel());
+        lblSerialID.setText(Long.toString(device.getId()));
+        lblName.setText(device.getDeviceName());
     }
 
     /**

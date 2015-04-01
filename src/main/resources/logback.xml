@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="ch.obsec.net.swsimfx" level="WARN"/>
+    <logger name="ch.obsec.net.swsimfx" level="DEBUG"/>
 
     <root level="info">
         <appender-ref ref="STDOUT" />
