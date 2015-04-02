@@ -1,13 +1,13 @@
 package ch.obsec.net.swsimfx;
 
 /**
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
 public class SSFglobal {
 
-    private static final String SSFVERSION = "v1.0";
+    private static final String SSFVERSION = "v1.1";
     private static final String SSFPRODUCT = "SwSimFX";
     private static final int SSF_SYSTEM_INFO_COUNTER = 2;
 

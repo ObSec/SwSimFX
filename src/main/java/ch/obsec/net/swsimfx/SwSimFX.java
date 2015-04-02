@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -20,13 +21,14 @@ import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.obsec.net.swsimfx.model.SimData;
+import ch.obsec.net.swsimfx.model.Device;
 import ch.obsec.net.swsimfx.model.DataWrapper;
 import ch.obsec.net.swsimfx.view.RootLayoutController;
 import ch.obsec.net.swsimfx.view.WorkSpaceController;
+import ch.obsec.net.swsimfx.view.DeviceEditDialogController;
 
 /**
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  * @author mario.oberli@obsec.ch
  */
@@ -36,7 +38,7 @@ public class SwSimFX extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    private ObservableList<SimData> simData = FXCollections.observableArrayList();
+    private ObservableList<Device> deviceData = FXCollections.observableArrayList();
 
     /**
      * Entry point JavaFX
@@ -68,6 +70,7 @@ public class SwSimFX extends Application {
             primaryStage.show();
         } catch (IOException e) {
             LOGGER.warn("initRootLayout() failed: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
         File file = getDataFilePath();
         if (file != null) {
@@ -89,6 +92,7 @@ public class SwSimFX extends Application {
             controller.setMainApp(this);
         } catch (IOException e) {
             LOGGER.warn("showWorkSpace(): {}", e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -112,7 +116,7 @@ public class SwSimFX extends Application {
      * @param file path
      */
     public void setDataFilePath(File file) {
-        LOGGER.debug("setCompanyFilePath()");
+        LOGGER.debug("setDataFileFilePath()");
         Preferences prefs = Preferences.userNodeForPackage(SwSimFX.class);
         if (file != null) {
             prefs.put("filePath", file.getPath());
@@ -133,11 +137,12 @@ public class SwSimFX extends Application {
             JAXBContext context = JAXBContext.newInstance(DataWrapper.class);
             Unmarshaller um = context.createUnmarshaller();
             DataWrapper wrapper = (DataWrapper) um.unmarshal(file);
-            simData.clear();
-            simData.addAll(wrapper.getData());
+            deviceData.clear();
+            deviceData.addAll(wrapper.getDevice());
             setDataFilePath(file);
         } catch (Exception e) {
             LOGGER.warn("loadDataFromFile() file: {}",e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -146,17 +151,42 @@ public class SwSimFX extends Application {
      * @param file file to save data to
      */
     public void saveDataToFile(File file) {
-        LOGGER.debug("saveCompanyDataToFile()");
+        LOGGER.debug("saveDataToFile()");
         try {
             JAXBContext context = JAXBContext.newInstance(DataWrapper.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             DataWrapper wrapper = new DataWrapper();
-            wrapper.setData(simData);
+            wrapper.setDevice(deviceData);
             m.marshal(wrapper, file);
             setDataFilePath(file);
         } catch (Exception e) {
             LOGGER.warn("saveCompanyDataToFile() failed: {}",e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean showDeviceEditDialog(Device device) {
+        LOGGER.debug("showDeviceEditDialog()");
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(SwSimFX.class.getResource("/fxml/DeviceEditDialog.fxml"));
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Device");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.getIcons().add(new Image("/images/edit.png"));
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            DeviceEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDevice(device);
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            LOGGER.warn("showDeviceEditDialog(): {}", e.getMessage());
+            return false;
         }
     }
 
@@ -167,6 +197,15 @@ public class SwSimFX extends Application {
     public Stage getPrimaryStage() {
         LOGGER.debug("getPrimaryState()");
         return primaryStage;
+    }
+
+    /**
+     * get a list of all companies
+     * @return companies list
+     */
+    public ObservableList<Device> getDeviceData() {
+        LOGGER.debug("getDeviceData()");
+        return deviceData;
     }
 
     /**
