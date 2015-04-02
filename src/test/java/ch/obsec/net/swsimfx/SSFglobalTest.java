@@ -8,7 +8,7 @@ public class SSFglobalTest {
 
     @Test
     public void testGetVersion() throws Exception {
-        if (SSFglobal.getVersion().equals("v1.1")) {
+        if (SSFglobal.getVersion().equals("v1.2")) {
             assertTrue(true);
         } else {
             assertFalse(true);

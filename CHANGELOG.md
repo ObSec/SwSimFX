@@ -1,6 +1,22 @@
 CHANGES
 =======
 
+**Version 1.1**
+
+* SSF-9 version number adjusted, generic device icons added
+* SSF-10 @version changed to 1.1
+* SSF-11 Update JavaDoc
+* SSF-12 version changed to 1.1
+* SSF-13 Update JavaDoc
+* SSF-14 Add Device Dialog
+* SSF-14 Prep Device object
+* SSF-14 device.class is growing
+* SSF-14 device icons added
+* SSF-15 re-throw Exception
+* SSF-18 junit
+* SSF-18 junit tests
+* new ch.qos.logback version
+
 **Version 1.0**
 
 * SSF-2 Main Window with menubar created
